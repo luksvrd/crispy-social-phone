@@ -24,7 +24,7 @@ const UserSchema = new Schema(
     // 10 most recent thoughts
     recentThoughts: [ThoughtSchema],
     // embedded document array
-    frinds: [
+    friends: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -34,8 +34,15 @@ const UserSchema = new Schema(
   {
     new: true,
     runValidators: true,
-    versioinKey: false,
+    toJSON: {
+      virtuals: true,
+    },
+    versionKey: false,
   }
 );
+
+UserSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
 export default model("User", UserSchema);

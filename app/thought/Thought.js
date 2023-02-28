@@ -25,7 +25,7 @@ export const ThoughtSchema = new Schema(
     },
 
     // 10 reaction limit
-    reactions: [ReactionSchema],
+    recentReactions: [ReactionSchema],
   },
   {
     toJSON: {
