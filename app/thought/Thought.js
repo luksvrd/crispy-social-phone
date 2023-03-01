@@ -37,6 +37,13 @@ export const ThoughtSchema = new Schema(
   }
 );
 
+ThoughtSchema.methods.addReaction = function (reaction) {
+  // Add reaction to thoughts recent reactions at the beginning of the array
+  this.recentReactions.unshift(reaction);
+
+  return this.save();
+};
+
 ThoughtSchema.virtual("reactionCount").get(async function () {
   // Find all Reactions where the thoughtID matches the current thought's _id
   const reactions = await mongoose.model.Reaction.find({

@@ -41,6 +41,35 @@ const UserSchema = new Schema(
   }
 );
 
+UserSchema.methods.addFriend = function (friendId) {
+  // Does user already have this friend?
+  if (this.friends.includes(friendId)) {
+    return;
+  }
+  // Add friend to users friends list
+  this.friends.push(friendId);
+  // save user in db
+  return this.save();
+};
+
+UserSchema.methods.addThought = function (thought) {
+  // Add thought to users recent thoughts at the beginning
+  this.recentThoughts.unshift(thought);
+
+  return this.save();
+};
+
+UserSchema.methods.addReaction = function (reaction, thoughtId) {
+  const thought2update = this.recentThoughts.find((recentThought) =>
+    recentThought._id.equals(thoughtId)
+  );
+
+  if (thought2update) {
+    thought2update.recentReactions.unshift(reaction);
+    return this.save();
+  }
+};
+
 UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });

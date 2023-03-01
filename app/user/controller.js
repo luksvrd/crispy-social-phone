@@ -12,12 +12,6 @@ const controller = {
   async updatedByAddingFriend(username, friendId) {
     // Find user
     const user = await this.show(username);
-
-    // User already have this friend?
-    if (user.friends.includes(friendId)) {
-      return;
-    }
-
     // find the friend
     const friendUser = await User.findById(friendId);
 
@@ -25,11 +19,7 @@ const controller = {
       throw new Error("Invalid username or friendId");
     }
 
-    // Add friend to users friends list
-    user.friends.push(friendUser._id);
-
-    // save user in db
-    return user.save();
+    user.addFriend(friendId);
   },
 };
 
@@ -63,12 +53,15 @@ const controller = {
 
 // console.log("Adding friends");
 // controller
-//   .updatedByAddingFriend("john", "63fe7d8f54167944abf0a843")
+//   .updatedByAddingFriend("john", "63ff88e3c9ee5403f6b7f582")
 //   .then((update) => {
 //     console.log(update);
 //   })
 //   .catch((err) => {
 //     console.error(err.message);
+//   })
+//   .finally(() => {
+//     console.log("Added friend to User!");
 //   });
 
 export default controller;

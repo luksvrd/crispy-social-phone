@@ -18,12 +18,7 @@ const controller = {
       thinkingUser.username
     );
 
-    // Add the new thought to the user's recent thoughts
-    // unshift array method that adds to the beginning of the array
-    thinkingUser.recentThoughts.unshift(createdThought);
-
-    // MUST Save the user with the new thought added to their recent thoughts
-    return thinkingUser.save();
+    thinkingUser.addThought(createdThought);
   },
   // Get all thoughts
   index() {
@@ -35,7 +30,7 @@ const controller = {
   },
 };
 
-// (Step #3) Run the below code to create thoughts
+// (Step #3) Run the below code to create thoughts. Have user & reaction creation code commented out.
 
 // await initDB();
 
