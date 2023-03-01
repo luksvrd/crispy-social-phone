@@ -46,7 +46,7 @@ ThoughtSchema.methods.addReaction = function (reaction) {
 
 ThoughtSchema.virtual("reactionCount").get(async function () {
   // Find all Reactions where the thoughtID matches the current thought's _id
-  const reactions = await mongoose.model.Reaction.find({
+  const reactions = await mongoose.models.Reaction.find({
     thoughtID: this._id,
   });
   // Return the length of the array

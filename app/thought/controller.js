@@ -1,4 +1,4 @@
-// import initDB from "../client.js";
+// import initDB from "../db-client.js";
 import userController from "../user/controller.js";
 import Thought from "./Thought.js";
 
@@ -19,6 +19,8 @@ const controller = {
     );
 
     thinkingUser.addThought(createdThought);
+    // Return the thought
+    return createdThought;
   },
   // Get all thoughts
   index() {

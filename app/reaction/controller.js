@@ -1,4 +1,4 @@
-import initDB from "../client.js";
+// import initDB from "../db-client.js";
 import thoughtController from "../thought/controller.js";
 import userController from "../user/controller.js";
 import Reaction from "./Reaction.js";
@@ -22,16 +22,25 @@ const controller = {
     console.info("Reaction added to original thinker's top 10 reactions");
 
     ogThinkingUser.addReaction(createdReaction, thought._id);
+    // Return the reaction
+    return createdReaction;
   },
 };
 
 // (Step #4) Run the below code to create reactions. Copy the 'thoughtId' from mongoDB and paste. Comment out the creation code in thought/controller.js and user/controller.js 1st!
 
-await initDB();
+// await initDB();
 
-controller.createNewReaction({
-  reactionBody: "This is my initial reaction",
-  // username doing the reacting
-  username: "jane",
-  thoughtId: "63ff901ec0fad4a23db6c58b",
-});
+// controller
+//   .createNewReaction({
+//     reactionBody: "This is my initial reaction",
+//     // username doing the reacting
+//     username: "jane",
+//     thoughtId: "63ffbb8baaabe40b0f45ca0c",
+//   })
+//   .then((reaction) => {
+//     console.log(reaction);
+//   })
+//   .catch((err) => {
+//     console.error(err.message);
+//   });

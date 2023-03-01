@@ -1,4 +1,4 @@
-// import initDB from "../client.js";
+// import initDB from "../db-client.js";
 import User from "./User.js";
 
 const controller = {
@@ -9,9 +9,16 @@ const controller = {
   show(username) {
     return User.findOne({ username });
   },
+  index() {
+    return User.find({});
+  },
   async updatedByAddingFriend(username, friendId) {
     // Find user
     const user = await this.show(username);
+    // Does user already have this friend?
+    if (user.friends.includes(friendId)) {
+      throw new Error("User already has this friend");
+    }
     // find the friend
     const friendUser = await User.findById(friendId);
 
@@ -19,7 +26,9 @@ const controller = {
       throw new Error("Invalid username or friendId");
     }
 
-    user.addFriend(friendId);
+    user.friends.push(friendUser._id);
+    // Save the user
+    return user.save();
   },
 };
 
@@ -38,7 +47,7 @@ const controller = {
 //   });
 
 // controller
-//   .create({ username: "jane", email: "jane-friend@gmail.com" })
+//   .create({ username: "jane", email: "jane@gmail.com" })
 //   .then((user) => {
 //     console.log(user);
 //   })
@@ -53,7 +62,7 @@ const controller = {
 
 // console.log("Adding friends");
 // controller
-//   .updatedByAddingFriend("john", "63ff88e3c9ee5403f6b7f582")
+//   .updatedByAddingFriend("john", "63ffb93276a5a594544761c8")
 //   .then((update) => {
 //     console.log(update);
 //   })
