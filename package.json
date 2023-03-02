@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dep-graph": "depcruise --exclude \"^node_modules\" --output-type dot app | dot -T svg > dependency-graph.svg",
-    "test": "vitest"
+    "test": "vitest",
+    "start": "node app/index.js"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -21,6 +22,8 @@
     "vitest": "^0.28.1"
   },
   "dependencies": {
+    "dayjs": "^1.11.7",
+    "express": "^4.18.2",
     "mongoose": "^6.10.0"
   }
 }
