@@ -12,6 +12,7 @@ const controller = {
   index() {
     return User.find({});
   },
+
   async updatedByAddingFriend(username, friendId) {
     // Find user
     const user = await this.show(username);
@@ -29,6 +30,21 @@ const controller = {
     user.friends.push(friendUser._id);
     // Save the user
     return user.save();
+  },
+
+  async deleteFriend(username, friendId) {
+    const user = await User.findOne({ username });
+    if (!user) {
+      throw new Error(`User ${username} not found`);
+    }
+    if (!user.friends.includes(friendId)) {
+      throw new Error(`User ${username} doesn't have friend ${friendId}`);
+    }
+    user.friends = user.friends.filter(
+      (id) => id.toString() !== friendId.toString()
+    );
+    await user.save();
+    return user;
   },
 };
 
