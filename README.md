@@ -1,7 +1,7 @@
 # Social Media API
 
-![MongoDB](https://github.com/luksvrd/crispy-social-phone/tree/main/img/MongoDB.jpg)
-![Routes](https://github.com/luksvrd/crispy-social-phone/tree/main/img/Routes.jpg)
+![MongoDB](https://github.com/luksvrd/crispy-social-phone/blob/main/img/MongoDB.jpg)
+![Routes](https://github.com/luksvrd/crispy-social-phone/blob/main/img/Routes.jpg)
 
 ## Built Using
 
