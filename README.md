@@ -20,6 +20,7 @@ JavaScript, Node.js, Express.js, MongoDB, Mongoose, dayjs, and Insomnia
 ### \* [Description](#description)
 
 An API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. Used Express.js for routing, a MongoDB database, and the Mongoose ODM. In addition to using the Express.js and Mongoose packages, I chose to use the JavaScript date library `dayjs` to parse, validate, manipulate, and display dates and times in JavaScript.
+To see the routes in action, here is a [walkthrough video](https://www.loom.com/share/040a364726fd4dd3a974f62a4226d464)
 
 ```
 User Story:
