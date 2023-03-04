@@ -2,6 +2,7 @@
 
 ![MongoDB](https://github.com/luksvrd/crispy-social-phone/blob/main/img/MongoDB.jpg)
 ![Routes](https://github.com/luksvrd/crispy-social-phone/blob/main/img/Routes.jpg)
+![dep-graph](https://github.com/luksvrd/crispy-social-phone/blob/main/img/dep-graph.jpg)
 
 ## Built Using
 
