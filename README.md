@@ -1,39 +1,105 @@
-# Node Starter
+# Social Media API
 
-## TLDR
+![MongoDB](https://github.com/luksvrd/crispy-social-phone/tree/main/img/MongoDB.jpg)
+![Routes](https://github.com/luksvrd/crispy-social-phone/tree/main/img/Routes.jpg)
 
-Use of this starter template assumes that you have a 'complete dev environment' setup - a terminal, Node, VS Code, at least. If not, you may want to [start here.](https://www.notion.so/codefinity/Setting-up-a-Local-Dev-Environment-for-JS-02a4e9f4a30043d3a8e7d109be3448f4)
+## Built Using
 
-1. Click that big green button to start using it.
-2. `clone` your new repo from your GitHub to your local computer
-3. `cd` into the `clone`d repo and enter: `npm i`.
-4. `npm start`
+JavaScript, Node.js, Express.js, MongoDB, Mongoose, dayjs, and Insomnia
 
-## Some of What's Included
+## Table of Contents
 
-- [ESLint](https://eslint.org/) with the _Standard_ JS style guide.
+- [Description](#description)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Questions](#questions)
+- [Contributing](#contributing)
+- [License](#license)
+
+### \* [Description](#description)
+
+An API for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list. Used Express.js for routing, a MongoDB database, and the Mongoose ODM. In addition to using the Express.js and Mongoose packages, I chose to use the JavaScript date library `dayjs` to parse, validate, manipulate, and display dates and times in JavaScript.
+
+```
+User Story:
+AS A social media startup
+I WANT an API for my social network that uses a NoSQL database
+SO THAT my website can handle large amounts of unstructured data
+
+Acceptance Criteria:
+GIVEN a social network API
+WHEN I enter the command to invoke the application
+THEN my server is started and the Mongoose models are synced to the MongoDB database
+WHEN I open API GET routes in Insomnia for users and thoughts
+THEN the data for each of these routes is displayed in a formatted JSON
+WHEN I test API POST, PUT, and DELETE routes in Insomnia
+THEN I am able to successfully create, update, and delete users and thoughts in my database
+WHEN I test API POST and DELETE routes in Insomnia
+THEN I am able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list
+
+```
+
+### \* [Installation](#installation)
+
+This application assumes you have a 'complete dev environment' setup - a terminal, Node, & VS Code. To get started, Fork the repository and inside your terminal, `git clone` the new repo, `cd` into it and execute `npm i`.
+
+The following commands must be executed to run the application properly:
+
+- `npm i` to install all dependencies
+- `npm start` will start the server and watch the `app` directory for any changes using `nodemon`
+
+### \* [Usage](#usage)
+
+Once you have started the server, you can begin to try out the various routes to run CRUD opperations on the database. I used Insomnia to test the routes, but you can use any API client you prefer. The following routes are available using http://localhost:3000/ as the base URL:
+
+#### User Routes
+
+- `GET /users` to get all users
+- `GET /users/username` to get a single user by their username and populated thought, reaciton and friend data
+- `POST /users` to create a new user
+- `PUT /users/username` to update a user by their username
+- `DELETE /users/username` to delete a user by their username
+- `POST /users/username/friends/friendId` to add a new friend to a user's friend list
+- `DELETE /users/username/friends/friendId` to remove a friend from a user's friend list
+
+#### Thought Routes
+
+- `GET /thoughts` to get all thoughts
+- `GET /thoughts/thoughtId` to get a single thought by its `_id` and populated user and reaction data
+- `POST /thoughts` to create a new thought (don't forget to include a `username` property with the username of the user who created the thought)
+- `PUT /thoughts/thoughtId` to update a thought by its `_id`
+- `DELETE /thoughts/thoughtId` to delete a thought by its `_id`
+
+#### Reaction Routes
+
+- `POST /thoughts/thoughtId/reactions` to create a reaction stored in a single thought's `reactions` array field
+- `DELETE /thoughts/thoughtId/reactions/reactionId` to pull and remove a reaction by the reaction's `reactionId` value
+
+### \* [Questions](#questions)
+
+If you have any questions about the repo, open an issue at https://github.com/luksvrd/crispy-social-phone. You can also find more of my work on [Github](https://github.com/luksvrd)
+
+### \* [Contributing](#contributing)
+
+Contributors: Lukas Virden
+
+- Thanks to [Manav Misra](https://github.com/manavm1990/html-css-practice) for the Starter Templates & all his teachings throughout the WUSTL Coding Bootcamp.
+
+### \* [License](#license)
+
 - [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-- Various VS Code 'settings' and 'extensions.' Look in the bottom right when you open this up in VS Code to install them. The settings are responsible for auto-formatting on save (among other things), and the extensions are responsible for the auto-formatting.
-- [Vitest](https://vitest.dev/) for testing. Just do `npm test` or `npm t`.
+- ![NPM](https://img.shields.io/npm/l/inquirer?style=plastic)
+- ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+- [![npm collaborators](https://img.shields.io/npm/collaborators/inquirer)](https://www.npmjs.com/package/inquirer)
+- [![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/inquirer)](https://www.npmjs.com/package/inquirer)
+- [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
-## Dependency Graph
+- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-`npm run dep-graph`
+Copyright (c) 2022 Lukas Virden, All rights reserved.
 
-This project includes "dependency-cruiser". You can generate a dependency graph by running npm run dep-graph. This will be in SVG format by default. You can change this in the package.json file.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Note: You must have Graphviz installed for this to work. You can install it using Homebrew on macOS with brew install graphviz.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Here's an example of what the dependency graph looks like:
-
-![Dependency Graph](./dependency-graph.svg)
-
-## How To Use
-
-Run `npm i` to get all the things installed.
-
-`npm start` will watch the `app` directory for any changes using `nodemon`
-
-## Other Notes
-
-To use the new experimental `fetch` that's now in Node, just add: `/* global fetch */` to the top of your file. This will appease ESLint.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

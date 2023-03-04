@@ -5,7 +5,7 @@ const router = Router();
 
 // Get all users
 router.get("/", (_, res) => {
-  // index() is a method on the controller, it gets all users from the database and returns them however you want
+  // index() is a method on the controller, it gets all data from the database and returns
   UserController.index()
     .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));
@@ -23,6 +23,7 @@ router.get("/:username", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// Create a new user
 router.post("/", (req, res) => {
   UserController.create(req.body)
     .then((user) => res.status(201).json(user))

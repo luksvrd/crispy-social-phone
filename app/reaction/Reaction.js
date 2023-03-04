@@ -34,6 +34,7 @@ export const ReactionSchema = new Schema(
   }
 );
 
+// Update a thoughts recent reactions array when a reaction is deleted. Using a pre hook because we need to find the reaction before it is deleted
 ReactionSchema.pre("findOneAndDelete", async function (next) {
   const reactionId = this.get;
   const reaction = await this.findOne(this.getQuery());
