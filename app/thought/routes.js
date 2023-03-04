@@ -31,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new thought
-router.post("/create", async (req, res) => {
+router.post("/post", async (req, res) => {
   const { thoughtText, username } = req.body;
   try {
     const newThought = await thoughtController.createNewThought({
@@ -73,8 +73,6 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(404).json({ message: "Thought not found" });
     } else {
       await thought.delete();
-      // 204 is a successful response with no content
-      // How do i add a message with content?
       res.json({ message: "Thought sucessfully deleted" });
     }
   } catch (error) {

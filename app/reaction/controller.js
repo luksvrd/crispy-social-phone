@@ -25,6 +25,10 @@ const controller = {
     // Return the reaction
     return createdReaction;
   },
+  async deleteById(id) {
+    const deletedReaction = await Reaction.findByIdAndDelete(id);
+    return deletedReaction;
+  },
 };
 
 // (Step #4) Run the below code to create reactions. Copy the 'thoughtId' from mongoDB and paste. Comment out the creation code in thought/controller.js and user/controller.js 1st!
@@ -44,3 +48,5 @@ const controller = {
 //   .catch((err) => {
 //     console.error(err.message);
 //   });
+
+export default controller;

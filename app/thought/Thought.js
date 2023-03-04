@@ -43,6 +43,17 @@ ThoughtSchema.methods.addReaction = function (reaction) {
 
   return this.save();
 };
+// Remove a reaction from the thoughts recent reactions array
+ThoughtSchema.methods.removeReaction = async function (reactionId) {
+  const reactionIndex = this.recentReactions.findIndex((reaction) =>
+    reaction._id.equals(reactionId)
+  );
+  if (reactionIndex !== -1) {
+    // Remove the reaction from the recentReactions array
+    this.recentReactions.splice(reactionIndex, 1);
+    await this.save();
+  }
+};
 
 ThoughtSchema.virtual("reactionCount").get(async function () {
   // Find all Reactions where the thoughtID matches the current thought's _id
