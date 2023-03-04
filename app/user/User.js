@@ -41,17 +41,7 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.methods.addFriend = function (friendId) {
-  // Does user already have this friend?
-  if (this.friends.includes(friendId)) {
-    return;
-  }
-  // Add friend to users friends list
-  this.friends.push(friendId);
-  // save user in db
-  return this.save();
-};
-
+// Adding a thought to a users recent thoughts
 UserSchema.methods.addThought = function (thought) {
   // Add thought to users recent thoughts at the beginning
   this.recentThoughts.unshift(thought);
@@ -59,6 +49,7 @@ UserSchema.methods.addThought = function (thought) {
   return this.save();
 };
 
+// Adding reaction to a users recent reaction for a specific thought
 UserSchema.methods.addReaction = function (reaction, thoughtId) {
   const thought2update = this.recentThoughts.find((recentThought) =>
     recentThought._id.equals(thoughtId)
