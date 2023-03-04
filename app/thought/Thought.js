@@ -69,7 +69,7 @@ ThoughtSchema.pre("findOneAndUpdate", async function (next) {
   next();
 });
 
-// Update a users recent thoughts array when a thought is deleted
+// ThoughtSchema.pre is a mongoose method that runs before a query is executed & the '$' operator is used to get the query object
 ThoughtSchema.pre("findOneAndDelete", async function (next) {
   const thoughtId = this.getQuery()._id;
   const userId = this.getQuery().userId;

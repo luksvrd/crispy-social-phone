@@ -61,6 +61,7 @@ UserSchema.methods.addReaction = function (reaction, thoughtId) {
   }
 };
 
+// UserSchema.virtual is taking the virtual property friendCount and setting it to a function that returns the length of the friends array
 UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
