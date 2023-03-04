@@ -3,12 +3,7 @@ import UserController from "./controller.js";
 
 const router = Router();
 
-router.get("/index", (_, res) => {
-  UserController.index()
-    .then((users) => res.json(users))
-    .catch((err) => res.status(500).json(err));
-});
-
+// Get all users
 router.get("/", (_, res) => {
   // index() is a method on the controller, it gets all users from the database and returns them however you want
   UserController.index()
@@ -16,6 +11,7 @@ router.get("/", (_, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// Get a user by username
 router.get("/:username", (req, res) => {
   UserController.show(req.params.username)
     .then((user) => {
@@ -33,6 +29,7 @@ router.post("/", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// route to update a user
 router.put("/:username", (req, res) => {
   const { username } = req.params;
   const { email } = req.body;
@@ -48,6 +45,7 @@ router.put("/:username", (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// Delete a user
 router.delete("/:username", (req, res) => {
   const { username } = req.params;
   UserController.show(username)

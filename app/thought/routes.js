@@ -1,4 +1,5 @@
 import express from "express";
+import UserController from "../user/controller.js";
 import thoughtController from "./controller.js";
 
 const router = express.Router();
@@ -45,39 +46,31 @@ router.post("/post", async (req, res) => {
   }
 });
 
-// Update a thought by id
-router.put("/update/:id", async (req, res) => {
-  const { id } = req.params;
-  const { thoughtText } = req.body;
+// Update a thought
+router.put("/:username/thoughts/:thoughtId", async (req, res) => {
   try {
-    const thought = await thoughtController.show(id);
+    const user = await UserController.show(req.params.username);
+    const thought = user.recentThoughts.id(req.params.thoughtId);
     if (!thought) {
-      res.status(404).json({ message: "Thought not found" });
-    } else {
-      thought.thoughtText = thoughtText;
-      await thought.save();
-      res.status(200).json(thought);
+      throw new Error("Thought not found");
     }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    thought.set(req.body);
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-// Delete a thought by id
-router.delete("/delete/:id", async (req, res) => {
-  const { id } = req.params;
+// Delete a thought
+router.delete("/:username/thoughts/:thoughtId", async (req, res) => {
   try {
-    const thought = await thoughtController.show(id);
-    if (!thought) {
-      res.status(404).json({ message: "Thought not found" });
-    } else {
-      await thought.delete();
-      res.json({ message: "Thought sucessfully deleted" });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    const user = await UserController.show(req.params.username);
+    user.recentThoughts.id(req.params.thoughtId).remove();
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

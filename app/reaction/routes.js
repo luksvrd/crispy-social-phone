@@ -1,4 +1,5 @@
 import express from "express";
+import UserController from "../user/controller.js";
 import reactionController from "./controller.js";
 
 const router = express.Router();
@@ -14,18 +15,22 @@ router.post("/post", async (req, res) => {
   }
 });
 
-// Route for deleting a reaction by id
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const deletedReaction = await reactionController.deleteById(req.params.id);
-    if (!deletedReaction) {
-      return res.status(404).json({ message: "Reaction not found" });
+// Delete a reaction
+router.delete(
+  "/:username/thoughts/:thoughtId/reactions/:reactionId",
+  async (req, res) => {
+    try {
+      const user = await UserController.show(req.params.username);
+      const thought = user.recentThoughts.id(req.params.thoughtId);
+      if (!thought) {
+        throw new Error("Thought not found");
+      }
+      thought.recentReactions.id(req.params.reactionId).remove();
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
-    res.json(deletedReaction);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: err.message });
   }
-});
-
+);
 export default router;

@@ -34,4 +34,13 @@ export const ReactionSchema = new Schema(
   }
 );
 
+ReactionSchema.pre("findOneAndDelete", async function (next) {
+  const reactionId = this.get;
+  const reaction = await this.findOne(this.getQuery());
+  await reaction.populate("thoughtId").execPopulate();
+  await reaction.thoughtId.recentReactions.pull(reactionId);
+  await reaction.thoughtId.save();
+  next();
+});
+
 export default model("Reaction", ReactionSchema);
